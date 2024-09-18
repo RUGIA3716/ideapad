@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JS_CANVAS_課題1</title>
+    <link rel="stylesheet" href="./canvas.css">
+</head>
+
+<body>
+    何をどう作っていけばよいか、慣性系のイメージができなかったため課題コンテンツのとおりに書いていく。<BR>
+    また、風邪で作成し始める時間が遅くなりあまり時間がなかったため拡張性の少ないべた書き＆将来性なし設計なしコーディングであることを承知のうえ見てほしい。<BR>
+
+    まず、キャンバスを用意する。<br>
+    大きさはある程度調整しておくが、JSで調整するなりキャンバスサイズは動的に動くものとして処理を書いていく。<br>
+    ただ、最初は固定サイズで考える。360p (640*360) で考える。<br>
+    また、canvasにはあらかじめ枠線を与えるため共通のクラスを与え、CSSは別途用意する。<br>
+
+    <canvas width="640px" height="360px" class="canvas_demo_1"></canvas>
+    <br>
+
+    まず前提としてCANVASを用意できた。<br>
+    これに線を引いてみよう。<br>
+    線を引くためにはJavascriptでDrawLineやDrawRectなどを使用することが候補として考えられる。<br>
+    まずはJavascriptでCANVASを取得し線を引いてみる。同一ページで処理を行うため下記のCANVASにはIDを振っていく<br>
+    window.onloadなどを用いて毎回ロード後に処理を行うというのを連続で書いていくのは煩雑になるため、HTMLの最後にjsを用意する。<br>
+    JSのほうでIDを指定して取得。<br>
+    <br>
+
+    <canvas width="640px" height="360px" class="canvas_demo_1" id="canvas_demo_2"></canvas>
+    <br>
+    <br>
+    これで直線を引くことができた。<br>
+    次に、三角形、四角形をそれぞれ描いてみる。<br>
+    正三角形を描く場合は 3^(1/2) を辺の長さにかけたものを高さにするといい感じになる。はず。<br>
+    ところで今回線の色しかいわれないないので太さなどに関しては省く。<br>
+    <br>
+    <canvas width="640px" height="360px" class="canvas_demo_1" id="canvas_demo_3"></canvas>
+    
+    では次に今回のものの処理を関数化する。<br>
+    今回は正〇角形を想定して作成する。<br>
+    この場合、始点の指定と、横幅を指定すれば特定の図形を特定できるためこの二つを引数にした関数を作成する。<br>
+    また、canvasのハンドラを渡せばその他のcanvasにも応用できるためハンドラを渡すことにする。<br>
+    lineの場合は上下左右の方向が必要なため別途方向を指定する。。。がおそらく今後共通化するにあたって線の行先を指定し<br>
+    自動的に変換するほうが楽そうなので終点を指定しその終点に一番近い線を描くものとする。<br>
+    また、より直感的に操作できるように一部調整をする。<br>
+
+    <br>
+    通常の線を引く。
+    <br>
+    <canvas width="640px" height="360px" class="canvas_demo_1" id="canvas_demo_4"></canvas>
+    <br>
+    <br>
+    直角の線を引く。
+    <br>
+    <canvas width="640px" height="360px" class="canvas_demo_1" id="canvas_demo_5"></canvas>
+    <br>
+    <br>
+    任意の四角形を引く。
+    <br>
+    <canvas width="640px" height="360px" class="canvas_demo_1" id="canvas_demo_6"></canvas>
+    <br>
+    <br>
+    任意の正方形を引く。
+    <br>
+    <canvas width="640px" height="360px" class="canvas_demo_1" id="canvas_demo_7"></canvas>
+    <br>
+    <br>
+    任意の三角形を引く。
+    <br>
+    <canvas width="640px" height="360px" class="canvas_demo_1" id="canvas_demo_8"></canvas>
+    <br>
+    <br>
+    任意の正三角形を引く。
+    <br>
+    <canvas width="640px" height="360px" class="canvas_demo_1" id="canvas_demo_9"></canvas>
+    <br>
+    <br>
+    任意の楕円を引く。
+    <br>
+    <canvas width="640px" height="360px" class="canvas_demo_1" id="canvas_demo_10"></canvas>
+    <br>
+    <br>
+    任意の正円を引く。
+    <br>
+    <canvas width="640px" height="360px" class="canvas_demo_1" id="canvas_demo_11"></canvas>
+    <br>
+
+    <br>
+    ここまで1時間。<br>
+    っと図形を描く関数をすべてコーディングできたところで、<br>
+    キャンバスをクリック・ドラッグしたときに、始点と終点を割り出す機能を作成する。<br>
+    図形を書くときはドラッグ中にプレビューを表示する必要があるためドラッグもイベントとして検出。<br>
+    キャンバスを用意し、クリックのイベントを与える。クリック時と移動時、離したときのそれぞれで処理を行う。<br>
+    下記のキャンバスをクリック、ドラッグすると始点と終点、またその軌跡を表示する。<br>
+    <br>
+    マウスをクリックすると始点と終点を表示<br>
+    <div id="mouse_point_on_canvas_1">現在のマウスポインタのCANVAS上での座標</div>
+    <canvas width="640px" height="360px" class="canvas_demo_1" id="canvas_demo_12"></canvas>
+    <br>
+    <br>
+    えー、そろそろ23時ということで時間が無くなってきました。<br>
+    ここに図形を塗りつぶすか否かを加える予定でしたが時間がなさそうなので、工程を省略します。<br>
+    ドラッグ中にプレビューを表示するためには一度描画した後、その図形を無かったことにした上で再度描画する必要がある。<br>
+    Pythonとかなら図形を後から編集できるが出来なさそう(※詳しく調べていないけど経験談)なので、バッファを用いることにする。<br>
+    実際に使う描画済みデータと、描画予定の図形を描画するキャンバスの二枚を用いることで今回の機能を実現する。<br>
+    PS.機能実装は完了。あとはフロント実装してバックとつなげるだけだが23:40。ピンチ<br>
+    間に合いませんでした...。後は正方形以降の図形のパラメーターと、色、塗りつぶしの有無を追加する。<br>
+
+    <br>
+    描画する図形を選択してください。
+    <br>
+
+    <div onclick="change_form('line', this)" class = "shape_form_selector">線</div>
+    <div onclick="change_form('straight_line', this)" class = "shape_form_selector">直線</div>
+    <div onclick="change_form('rect', this)" class = "shape_form_selector selected">四角形</div>
+    <div onclick="change_form('square', this)" class = "shape_form_selector">正方形</div>
+        <br>
+    <div onclick="change_form('isosceles_triangle', this)" class = "shape_form_selector">三角形</div>
+
+    <div onclick="change_form('equilateral_triangle', this)" class = "shape_form_selector">正三角形</div>
+    <div onclick="change_form('ellipse', this)" class = "shape_form_selector">楕円</div>
+    <div onclick="change_form('perfect_circle', this)" class = "shape_form_selector">正円</div>
+    
+    <br>
+    線の色<br>
+    R:<input type="text" value="0" onchange="change_stroke_color('r', this)">
+    G:<input type="text" value="0" onchange="change_stroke_color('g', this)">
+    B:<input type="text" value="0" onchange="change_stroke_color('b', this)">
+    <br>
+    塗りつぶし
+    <input type="checkbox" onclick="change_fill_mode()">
+    <br>
+    R:<input type="text" value="128" onchange="change_fill_color('r', this)">
+    G:<input type="text" value="255" onchange="change_fill_color('g', this)">
+    B:<input type="text" value="128" onchange="change_fill_color('b', this)">
+    <br>
+    <canvas width="640px" height="360px" class="canvas_demo_1" id="canvas_demo_13"></canvas>
+    <br>
+    <br>
+    <canvas width="640px" height="360px" class="canvas_demo_1" id="canvas_demo_14"></canvas>
+    <br>
+    <br>
+
+
+    <br>
+
+</body>
+<script type="text/javascript" src="./test.js"></script>
+
+</html>

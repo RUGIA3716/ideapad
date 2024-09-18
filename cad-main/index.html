@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>お絵描きツール/CAD</title>
+    <link rel="stylesheet" href="./index.css">
+</head>
+<body>
+    <canvas width="1280px" height="720px" class="control_frame" id="control_canvas"></canvas>
+    <br>
+    <br>
+    <button onclick="set_mode('shape', 'free_line')">図形描画 [ 自由線形 ]</button>
+    <button onclick="set_mode('shape', 'rect')">図形描画 [ 四角形 ]</button>
+    <br>
+    <br>
+    <button onclick="start_taimelaps(this)">タイムラプスの開始</button>
+    <button onclick="start_taimelaps_all(this)">すべての線のタイムラプスの開始</button>
+    <br>
+    <button onclick="save_project(this)">プロジェクトの保存(未実装)</button>
+    <br>
+    <button onclick="check_box(this)">枠判定</button>
+    <br>
+    <br>
+
+    <canvas width="1280px" height="720px" class="save_frame" id="save_canvas"></canvas>
+    <br>
+</body>
+<script type="text/javascript" src="./index.js"></script>
+<!--
+    塗りつぶしについて。依然作った探索ルゴリズムを一つのレイヤー上のみで作動させる。
+    ランダムなポイントから開始し、CANVASの外形に振れた場合図の外側とみなす。
+    その場合最終まで探索を進めたうえで、塗れていない場所を開始ポイントとし再探索する。
+    これを繰り返しCANVASの外辺に触れなかったものを図形の塗りつぶしとする。
+    複数の図形上で塗りつぶしを行う場合は任意の点からの塗りつぶしの場合にのみ考慮する。(バケツ機能)
+-->
+
+</html>
